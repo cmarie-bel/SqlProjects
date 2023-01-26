@@ -1,0 +1,29 @@
+--Create a beauty store database
+
+CREATE TABLE beauty_store
+    (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price_in_dollar INTEGER, quantity INTEGER, bin INTEGER);
+        insert into beauty_store VALUES (1, "Comb", "Hair", 2, 23, 1);
+        insert into beauty_store VALUES (2, "Brush", "Hair", 2, 19, 2);
+        insert into beauty_store VALUES (3, "Nail Polish Remover", "Nails", 3, 8, 6);
+        insert into beauty_store VALUES (4, "Wig", "Hair", 26, 7, 3);
+        insert into beauty_store VALUES (5, "Nail File", "Nails", 1, 36, 7);
+        insert into beauty_store VALUES (6, "Scent Samples", "Misc", 1, 121, 9);
+        insert into beauty_store VALUES (7, "Bonnet", "Misc", 4, 15, 10);
+        insert into beauty_store VALUES (8, "Nail Kit", "Nails", 7, 9, 8);
+        insert into beauty_store VALUES (9, "Lotion", "Skin", 6, 30, 4);
+        insert into beauty_store VALUES (10, "Essential Oils", "Misc", 3, 99, 11);
+        insert into beauty_store VALUES (11, "Leggings", "Clothes & Accessories", 9, 22, 15);
+        insert into beauty_store VALUES (12, "Hand Bags", "Clothes & Accessories", 21, 6, 16);
+        insert into beauty_store VALUES (13, "Lashes", "Face", 9, 8, 14);
+        insert into beauty_store VALUES (14, "Holding Gel", "Hair", 7, 12, 4);
+        insert into beauty_store VALUES (15, "Hair Conditioner", "Hair", 5, 20, 5);
+        insert into beauty_store VALUES (16, "Face Wash", "Skin", 4, 30, 13);
+        
+--display all items in the store
+select * from beauty_store;
+
+--display all items in the store sorted by price
+select * from beauty_store order by price_in_dollar;
+
+--display the total number of items for each category
+select category, SUM(quantity) from beauty_store group by category;
