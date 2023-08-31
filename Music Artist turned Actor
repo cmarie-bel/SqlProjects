@@ -1,0 +1,106 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE music_artists 
+(id INTEGER PRIMARY KEY AUTOINCREMENT, 
+artist TEXT, 
+film TEXT, 
+genre TEXT, 
+year INTEGER)
+;
+
+insert into music_artists values 
+(1, "Lady Gaga", "A Star Is Born", "musical drama", 2018);
+insert into music_artists values 
+(2, "Beyonce", "Cadillac Records", "musical drama", 2008);
+insert into music_artists values 
+(3, "Beyonce", "The Fighting Temptations", "comedy", 2003);
+insert into music_artists values 
+(4, "Beyonce", "The Pink Panther", "comedy", 2006);
+insert into music_artists values 
+(5, "Beyonce", "Obsessed", "psychological thriller", 2009);
+insert into music_artists values 
+(6, "Jamie Foxx", "Ray", "biopic", 2004);
+insert into music_artists values 
+(7, "Jennifer Hudson", "Dreamgirls", "musical drama", 2006);
+insert into music_artists values 
+(8, "Queen Latifah", "The Perfect Holiday", "comedy", 2007);
+insert into music_artists values 
+(9, "Jennifer Lopez", "Selena", "biopic", 1997);
+insert into music_artists values 
+(10, "Tim McGraw", "The Shack", "christian drama", 2017);
+insert into music_artists values 
+(11, "Will Smith", "Bad Boys", "comedy", 1995);
+insert into music_artists values 
+(12,"Whitney Houston", "The BodyGuard", "drama", 1992);
+insert into music_artists values 
+(13, "Ice Cube", "Boyz In Hood", "drama", 1997);
+insert into music_artists values 
+(14, "Ice Cube", "Friday", "comedy", 1995);
+insert into music_artists values 
+(15, "Ice Cube", "Barbershop", "comedy", 2002);
+insert into music_artists values 
+(16, "Ice Cube", "Barbershop 2: Back In Business", "comedy", 2004);
+insert into music_artists values 
+(17, "Ice Cube", "Barbershop: The Next Cut", "comedy", 2016)
+;
+
+CREATE TABLE gross_earnings
+(id INTEGER PRIMARY KEY AUTOINCREMENT,
+film TEXT, 
+gross_earnings NUMERIC)
+;
+
+insert into gross_earnings values
+(1, "A Star Is Born", 215.3);
+insert into gross_earnings values
+(2, "Cadillac Records", 8.2);
+insert into gross_earnings values
+(3, "The Fighting Temptations", 30);
+insert into gross_earnings values
+(4, "The Pink Panther", 82.2);
+insert into gross_earnings values
+(5, "Obsessed", 68.3);
+insert into gross_earnings values
+(6, "Ray", 75);
+insert into gross_earnings values
+(7, "Dream Girls", 103);
+insert into gross_earnings values
+(8, "The Perfect Holiday", 5.8);
+insert into gross_earnings values
+(9, "Selena", 35.5);
+insert into gross_earnings values
+(10, "The Shack", 57.4);
+insert into gross_earnings values
+(11, "Bad Boys", 65.8);
+insert into gross_earnings values
+(12, "The BodyGuard", 122);
+insert into gross_earnings values
+(13,"Boyz In Hood", 56.2);
+insert into gross_earnings values
+(14, "Friday", 27.5);
+insert into gross_earnings values
+(15, "Barbershop", 75.8);
+insert into gross_earnings values
+(16, "Barbershop 2: Back In Business", 65.1);
+insert into gross_earnings values
+(17, "Barbershop: The Next Cut", 54)
+;
+
+Select * from music_artists;
+
+
+select film, gross_earnings as gross_in_millions from gross_earnings;
+
+
+/*I want to know the count of all genres where Beyonce is the artist.*/
+
+select artist, genre, count(genre) from music_artists where artist = "Beyonce" group by genre;
+
+
+/*I want to know the sum of gross earnings Ice Cube made from the 5 films listed.*/
+
+select m.artist, sum(g.gross_earnings) as gross_in_millions
+from music_artists as m
+join gross_earnings as g
+on m.film = g.film
+where artist = "Ice Cube";
