@@ -1,0 +1,71 @@
+/* For this project, I utilized the RDBMS SQLite Studio to gain insight on customer and order data
+from January and February 2019. I spotted some messy data (some empty rows and some incorrect)
+and had to clean it before running a successful query!*/
+
+/* Since there are multiple tables in the database, I ran a few basic queries to begin just to 
+familiarize myself with the data in the columns that I would be using.*/
+select * from bit_db.customers limit 5;
+select * from bit_db.JanSales limit 5;
+select * from bit_db.FebSales limit 5;
+
+
+/* 1. How many orders were placed in January?*/
+select count(orderID)
+from bit_db.JanSales
+where length(orderID) = 6
+and orderid <> 'Order ID'
+;
+
+/* 2. How many of those orders were for an iPhone?*/
+select count(orderID)
+from bit_db.JanSales
+where product = 'iphone'
+and length(orderID) = 6
+and orderid <> 'Order ID'
+;
+
+/* 3. Select the customer account numbers for all the orders that were placed in February.*/
+select distinct acctnum
+from bit_db.customers as customers
+inner join bit_db.FebSales as Feb
+    on customers.order_id = Feb.orderID
+where length(orderid) = 6 
+and orderid <> 'Order ID'
+;
+
+/* 4. Which product was the cheapest one sold in January, and what was the price?*/
+select distinct product, price
+from bit_db.JanSales
+order by price asc
+limit 1
+;
+
+/* 5. What is the total revenue for each product sold in January?*/
+select sum(quantity)*price as revenue, product
+from bit_db.JanSales
+group by product
+;
+
+/* 6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101,
+how many of each were sold, and what was the total revenue?*/
+select 
+    product
+    , sum(quantity)
+    , sum(quantity)*price as revenue
+from bit_db.FebSales
+where location = '548 Lincoln St, Seattle, WA 98101'
+group by product
+;
+
+/* 7. How many customers ordered more than 2 products at a time in February, and 
+what was the average amount spent for those customers?*/
+select 
+    count(distinct cust.acctnum)
+    ,avg(quantity*price)
+from bit_db.customers as cust
+inner join bit_db.FebSales as feb
+    on cust.order_id = feb.orderID
+where feb.quantity > 2
+and length(orderid) =6
+and orderid <> 'Order ID'
+;
